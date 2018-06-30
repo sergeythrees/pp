@@ -1,0 +1,11 @@
+﻿  stdafx.cpp
+  Barber.cpp
+  BarberShop.cpp
+  Client.cpp
+  main.cpp
+  ThreadsController.cpp
+  Generating code
+  All 354 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  BarberShop.vcxproj -> D:\reps\pp\lw2\Stepanenko_Sergey\SleepingBarber\x64\Release\SleepingBarber.exe
+  BarberShop.vcxproj -> D:\reps\pp\lw2\Stepanenko_Sergey\SleepingBarber\x64\Release\SleepingBarber.pdb (Full PDB)
