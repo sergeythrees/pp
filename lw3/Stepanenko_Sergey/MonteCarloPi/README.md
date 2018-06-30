@@ -1,0 +1,1 @@
+Use MonteCarloPi.exe <number of iterations> <number of threads>
