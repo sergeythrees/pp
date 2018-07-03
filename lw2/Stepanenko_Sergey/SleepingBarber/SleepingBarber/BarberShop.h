@@ -31,8 +31,6 @@ public:
 private:
 	static DWORD WINAPI SimulateClient(LPVOID parameter);
 	static DWORD WINAPI SimulateBarber(LPVOID parameter);
-	static DWORD WINAPI WaitTermination(LPVOID parameter);
-	void TerminateSimulation();
 
 	size_t m_numberOfSeats;
 	ThreadsController m_threads;

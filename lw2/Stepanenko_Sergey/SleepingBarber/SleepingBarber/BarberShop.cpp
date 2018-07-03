@@ -1,12 +1,16 @@
 #include "stdafx.h"
+#include "PrintThread.h"
 #include "BarberShop.h"
+#include <vector>
+
+const std::vector<std::string> hairstyles = { "Zero", "Box", "Short", "Punk" };
 
 BarberShop::BarberShop(const size_t & numberOfSeats)
 	:m_threads(ThreadsController())
 {
 	m_barberShopQueue = CreateEvent(NULL, FALSE, TRUE, NULL);
 	m_numberOfSeats = numberOfSeats;
-	std::cout << "BarberShop is initialized with " << m_numberOfSeats << " seats" << std::endl;
+	std::printf("BarberShop is initialized with %d seats\n", m_numberOfSeats);
 }
 
 BarberShop::~BarberShop()
@@ -21,7 +25,7 @@ void BarberShop::Simulate(size_t numberOfClients)
 	m_threads.Add(SimulateBarber, dataForBarber);
 	for (size_t i = 0; i < numberOfClients; i++)
 	{
-		clients.push_back(new Client(i));
+		clients.push_back(new Client(i, hairstyles[rand() % hairstyles.size()]));
 		DataForClient * dataForClient = new DataForClient{ this, barber, clients.back() };
 		m_threads.Add(SimulateClient, dataForClient);
 	}
@@ -64,6 +68,7 @@ Client * BarberShop::GetFirstClientInQueue()
 void BarberShop::AddClientInToQueue(Client * client)
 {
 	m_queue.push(client);
+	std::printf("Client#%d stood in queue\n", client->GetId());
 }
 
 HANDLE BarberShop::GetQueueEvent()
