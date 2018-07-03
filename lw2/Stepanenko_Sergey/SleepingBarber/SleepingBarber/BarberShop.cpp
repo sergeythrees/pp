@@ -25,28 +25,7 @@ void BarberShop::Simulate(size_t numberOfClients)
 		DataForClient * dataForClient = new DataForClient{ this, barber, clients.back() };
 		m_threads.Add(SimulateClient, dataForClient);
 	}
-	m_threads.Add(WaitTermination, this);
 	m_threads.HandleAll();
-}
-
-void BarberShop::TerminateSimulation()
-{
-	m_threads.TerminateAll();
-}
-
-DWORD WINAPI BarberShop::WaitTermination(LPVOID parameter)
-{
-	while (true)
-	{
-		BarberShop * barberShop = reinterpret_cast<BarberShop *>(parameter);
-		WaitForSingleObject(barberShop->GetQueueEvent(), INFINITE);
-		std::cout << "!" << barberShop->GetNumberOfWaitingClients() << std::endl;
-		if (barberShop->GetNumberOfWaitingClients() <= 0)
-		{
-			barberShop->TerminateSimulation();
-		}
-		return 0;
-	}
 }
 
 DWORD WINAPI BarberShop::SimulateClient(LPVOID parameter)
