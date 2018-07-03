@@ -17,24 +17,16 @@ void Barber::Work(BarberShop * barberShop)
 	{
 		WaitForSingleObject(m_wakeUp, INFINITE);
 		SetEvent(m_wakeUp);
-		std::printf("Barber: Searching for Client\n");
-		Sleep(500);
 		Client * client = barberShop->GetFirstClientInQueue();
 		std::printf("Barber: Asking Client# %d about his favourite hairstyle\n", client->GetId());
-		std::printf("Barber: Make %s hairstyle\n", client->AskHairstyle());
+		std::printf("Barber: Make %s hairstyle\n", client->AskHaircut());
 		Sleep(500);
-		std::printf("Barber: Done!\n", client->AskHairstyle());
-		ResetEvent(m_wakeUp);		
-		if (barberShop->GetNumberOfWaitingClients() > 0)
+		std::printf("Barber: Done!\n", client->AskHaircut());
+		ResetEvent(m_wakeUp);	
+		PulseEvent(barberShop->GetQueueEvent());
+		if (barberShop->GetNumberOfWaitingClients() <= 0)
 		{
-			PulseEvent(barberShop->GetQueueEvent());
-		}
-		else
-		{
-			PulseEvent(barberShop->GetQueueEvent());
-			std::printf("Barber: Found no one and went to sleep\n");
-			Sleep(500);
-			ResetEvent(m_wakeUp);
+			std::printf("Barber: Found no one and went to sleep\n");			
 		}
 	}
 }

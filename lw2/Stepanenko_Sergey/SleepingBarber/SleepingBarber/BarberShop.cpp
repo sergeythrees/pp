@@ -3,7 +3,7 @@
 #include "BarberShop.h"
 #include <vector>
 
-const std::vector<std::string> hairstyles = { "Zero", "Box", "Short", "Punk" };
+const std::vector<std::string> haircuts = { "Zero", "Box", "Short", "Punk" };
 
 BarberShop::BarberShop(const size_t & numberOfSeats)
 	:m_threads(ThreadsController())
@@ -25,7 +25,7 @@ void BarberShop::Simulate(size_t numberOfClients)
 	m_threads.Add(SimulateBarber, dataForBarber);
 	for (size_t i = 0; i < numberOfClients; i++)
 	{
-		clients.push_back(new Client(i, hairstyles[rand() % hairstyles.size()]));
+		clients.push_back(new Client(i, haircuts[rand() % haircuts.size()]));
 		DataForClient * dataForClient = new DataForClient{ this, barber, clients.back() };
 		m_threads.Add(SimulateClient, dataForClient);
 	}

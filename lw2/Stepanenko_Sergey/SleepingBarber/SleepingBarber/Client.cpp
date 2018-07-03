@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Client.h"
 
-Client::Client(const size_t & id, const std::string hairstyle)
+Client::Client(const size_t & id, const std::string haircut)
 	:m_id(id),
-	m_hairstyle(hairstyle),
+	m_haircut(haircut),
 	m_wakeUp(CreateEvent(NULL, TRUE, FALSE, NULL))
 {
 }
@@ -15,6 +15,7 @@ Client::~Client()
 
 void Client::GoToBarberShop(BarberShop * barberShop, Barber * barber)
 {
+	Sleep(3000);
 	if (barberShop->GetNumberOfWaitingClients() >= barberShop->GetNumberOfSeats())
 	{
 		std::printf("Client#%d: Did not find an empty seat and left\n", m_id);
@@ -47,7 +48,7 @@ void Client::WakeUpBarber(Barber * barber)
 	}
 }
 
-std::string Client::AskHairstyle()
+std::string Client::AskHaircut()
 {
-	return m_hairstyle;
+	return m_haircut;
 }
